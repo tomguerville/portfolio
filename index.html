@@ -538,15 +538,60 @@
   .interest-card .ic-icon {
     color: var(--accent);
     line-height: 0;
-    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     margin: 1rem 0;
+    height: 110px;
+    display: flex;
+    align-items: center;
   }
-  .interest-card .ic-icon svg {
-    width: 96px;
-    height: 96px;
-    display: block;
+  .interest-card .ic-icon svg { display: block; overflow: visible; }
+  .ic-football-svg { width: 180px; height: 110px; }
+  .ic-gaming-svg { width: 110px; height: 110px; }
+
+  /* Football animation: ball rolls into goal while spinning */
+  .ic-football-svg .fb-ball { transform-origin: 35px 60px; transition: transform 0.8s cubic-bezier(0.5, 0, 0.25, 1); }
+  .ic-football-svg .fb-goal { opacity: 0; transform-origin: 135px 60px; transform: scale(0.6); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .ic-football-svg .fb-net { opacity: 0; transition: opacity 0.5s ease 0.3s; }
+  .ic-football-svg .fb-trail { opacity: 0; transition: opacity 0.4s ease; }
+  .interest-card:hover .ic-football-svg .fb-goal { opacity: 1; transform: scale(1); }
+  .interest-card:hover .ic-football-svg .fb-ball { animation: ballRoll 1.6s cubic-bezier(0.45, 0.05, 0.35, 1) forwards; }
+  .interest-card:hover .ic-football-svg .fb-net { opacity: 1; }
+  .interest-card:hover .ic-football-svg .fb-trail { opacity: 0.4; animation: trailFade 1.6s ease forwards; }
+  @keyframes ballRoll {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    60% { transform: translate(75px, -8px) rotate(540deg); }
+    75% { transform: translate(90px, 0) rotate(680deg); }
+    85% { transform: translate(85px, 2px) rotate(720deg); }
+    100% { transform: translate(88px, 0) rotate(720deg); }
   }
-  .interest-card:hover .ic-icon { transform: scale(1.08) rotate(-4deg); }
+  @keyframes trailFade {
+    0%, 40% { opacity: 0.5; }
+    100% { opacity: 0; }
+  }
+
+  /* Gaming animation: controller spins + buttons pulse */
+  .ic-gaming-svg .gp-body { transform-origin: 50px 55px; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+  .ic-gaming-svg .gp-btn { transition: fill 0.3s ease, transform 0.3s ease; transform-origin: center; transform-box: fill-box; }
+  .ic-gaming-svg .gp-glow { opacity: 0; transition: opacity 0.6s ease; transform-origin: 50px 55px; }
+  .interest-card:hover .ic-gaming-svg .gp-body { animation: ctrlSpin 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .interest-card:hover .ic-gaming-svg .gp-glow { opacity: 1; animation: glowPulse 1.2s ease-in-out infinite; }
+  .interest-card:hover .ic-gaming-svg .gp-btn-a { animation: btnPulse 0.9s ease-in-out infinite; }
+  .interest-card:hover .ic-gaming-svg .gp-btn-b { animation: btnPulse 0.9s ease-in-out 0.2s infinite; }
+  .interest-card:hover .ic-gaming-svg .gp-btn-x { animation: btnPulse 0.9s ease-in-out 0.4s infinite; }
+  .interest-card:hover .ic-gaming-svg .gp-btn-y { animation: btnPulse 0.9s ease-in-out 0.6s infinite; }
+  @keyframes ctrlSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    30% { transform: rotate(-12deg) scale(1.06); }
+    60% { transform: rotate(200deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  @keyframes btnPulse {
+    0%, 100% { transform: scale(1); fill: currentColor; }
+    50% { transform: scale(1.4); fill: var(--accent); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.15); opacity: 0.5; }
+  }
   .interest-card h4 {
     font-family: 'Fraunces', serif;
     font-size: 2rem;
@@ -954,7 +999,7 @@
     <div class="comp-card">
       <div>
         <div class="comp-num">04 — Management</div>
-        <div class="comp-icon">L</div>
+        <div class="comp-icon">M</div>
       </div>
       <div>
         <h3>Management <span class="it">d'équipe</span></h3>
@@ -1053,20 +1098,62 @@
         <div class="ic-num">01 — SPORT</div>
       </div>
       <div class="ic-icon">
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-          <circle cx="50" cy="50" r="42"/>
-          <polygon points="50,34 63,44 58,59 42,59 37,44" fill="currentColor" stroke="none"/>
-          <polygon points="50,34 63,44 58,59 42,59 37,44"/>
-          <path d="M50 34 L50 14"/>
-          <path d="M63 44 L82 37"/>
-          <path d="M58 59 L70 76"/>
-          <path d="M42 59 L30 76"/>
-          <path d="M37 44 L18 37"/>
-          <path d="M50 14 L63 8 M50 14 L37 8"/>
-          <path d="M82 37 L91 46 M82 37 L90 27"/>
-          <path d="M70 76 L82 86 M70 76 L73 90"/>
-          <path d="M30 76 L18 86 M30 76 L27 90"/>
-          <path d="M18 37 L9 46 M18 37 L10 27"/>
+        <svg class="ic-football-svg" viewBox="0 0 180 110" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+          <!-- Goal (right) -->
+          <g class="fb-goal">
+            <!-- Posts + crossbar -->
+            <rect x="115" y="32" width="2.5" height="56" fill="currentColor" stroke="none" rx="1"/>
+            <rect x="163" y="32" width="2.5" height="56" fill="currentColor" stroke="none" rx="1"/>
+            <rect x="115" y="32" width="50.5" height="2.5" fill="currentColor" stroke="none" rx="1"/>
+            <!-- Net -->
+            <g class="fb-net" stroke="currentColor" stroke-width="0.6" opacity="0.45">
+              <line x1="120" y1="35" x2="120" y2="88"/>
+              <line x1="128" y1="35" x2="128" y2="88"/>
+              <line x1="136" y1="35" x2="136" y2="88"/>
+              <line x1="144" y1="35" x2="144" y2="88"/>
+              <line x1="152" y1="35" x2="152" y2="88"/>
+              <line x1="160" y1="35" x2="160" y2="88"/>
+              <line x1="117" y1="44" x2="164" y2="44"/>
+              <line x1="117" y1="56" x2="164" y2="56"/>
+              <line x1="117" y1="68" x2="164" y2="68"/>
+              <line x1="117" y1="80" x2="164" y2="80"/>
+              <!-- diagonals -->
+              <line x1="117" y1="35" x2="164" y2="88" opacity="0.5"/>
+              <line x1="164" y1="35" x2="117" y2="88" opacity="0.5"/>
+            </g>
+            <!-- Ground line -->
+            <line x1="108" y1="88" x2="172" y2="88" stroke-width="1.5"/>
+          </g>
+
+          <!-- Trail of small dots as ball flies -->
+          <g class="fb-trail" fill="currentColor" stroke="none">
+            <circle cx="45" cy="62" r="1.2" opacity="0.3"/>
+            <circle cx="58" cy="58" r="1" opacity="0.35"/>
+            <circle cx="72" cy="55" r="0.9" opacity="0.4"/>
+            <circle cx="86" cy="54" r="0.8" opacity="0.45"/>
+            <circle cx="100" cy="56" r="0.7" opacity="0.5"/>
+          </g>
+
+          <!-- Ball (left) -->
+          <g class="fb-ball">
+            <!-- Outer circle -->
+            <circle cx="35" cy="60" r="22"/>
+            <!-- Central pentagon (filled) -->
+            <polygon points="35,49 42.5,54.5 39.7,63.5 30.3,63.5 27.5,54.5" fill="currentColor" stroke="none"/>
+            <polygon points="35,49 42.5,54.5 39.7,63.5 30.3,63.5 27.5,54.5"/>
+            <!-- Lines from pentagon vertices to edge -->
+            <line x1="35" y1="49" x2="35" y2="40"/>
+            <line x1="42.5" y1="54.5" x2="51" y2="52"/>
+            <line x1="39.7" y1="63.5" x2="45" y2="72"/>
+            <line x1="30.3" y1="63.5" x2="25" y2="72"/>
+            <line x1="27.5" y1="54.5" x2="19" y2="52"/>
+            <!-- Edge hexagon fragments -->
+            <path d="M35 40 L28 38 M35 40 L42 38"/>
+            <path d="M51 52 L55 46 M51 52 L55 58"/>
+            <path d="M45 72 L50 78 M45 72 L40 78"/>
+            <path d="M25 72 L20 78 M25 72 L30 78"/>
+            <path d="M19 52 L15 58 M19 52 L15 46"/>
+          </g>
         </svg>
       </div>
       <div>
@@ -1079,16 +1166,35 @@
         <div class="ic-num">02 — GAMING</div>
       </div>
       <div class="ic-icon">
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-          <path d="M32 38 Q18 38 14 54 L9 74 Q7 86 17 86 Q26 86 31 78 L36 70 L64 70 L69 78 Q74 86 83 86 Q93 86 91 74 L86 54 Q82 38 68 38 Q58 36 50 36 Q42 36 32 38 Z"/>
-          <path d="M32 34 Q28 30 32 26 L40 26 Q44 26 44 30 L44 32"/>
-          <path d="M68 34 Q72 30 68 26 L60 26 Q56 26 56 30 L56 32"/>
-          <line x1="22" y1="54" x2="34" y2="54"/>
-          <line x1="28" y1="48" x2="28" y2="60"/>
-          <circle cx="68" cy="48" r="3" fill="currentColor" stroke="none"/>
-          <circle cx="76" cy="54" r="3" stroke="currentColor"/>
-          <circle cx="68" cy="60" r="3" stroke="currentColor"/>
-          <circle cx="60" cy="54" r="3" stroke="currentColor"/>
+        <svg class="ic-gaming-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+          <!-- Glow halo behind -->
+          <circle class="gp-glow" cx="50" cy="55" r="40" fill="currentColor" stroke="none" opacity="0.2"/>
+
+          <g class="gp-body">
+            <!-- Top triggers (shoulder buttons) -->
+            <path d="M28 38 Q22 30 28 25 L40 25 Q44 25 44 30"/>
+            <path d="M72 38 Q78 30 72 25 L60 25 Q56 25 56 30"/>
+            <!-- Main body -->
+            <path d="M28 38 Q14 38 10 54 L6 76 Q4 88 16 88 Q26 88 31 80 L36 72 L64 72 L69 80 Q74 88 84 88 Q96 88 94 76 L90 54 Q86 38 72 38 Q60 36 50 36 Q40 36 28 38 Z"/>
+
+            <!-- D-pad cross (left) -->
+            <path d="M22 48 L22 54 L16 54 L16 60 L22 60 L22 66 L28 66 L28 60 L34 60 L34 54 L28 54 L28 48 Z"/>
+
+            <!-- Action buttons diamond (right) -->
+            <circle class="gp-btn gp-btn-a" cx="78" cy="50" r="3" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-b" cx="86" cy="58" r="3" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-x" cx="78" cy="66" r="3" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-y" cx="70" cy="58" r="3" fill="currentColor" stroke="none"/>
+
+            <!-- Analog sticks -->
+            <circle cx="40" cy="74" r="4.5"/>
+            <circle cx="40" cy="74" r="1.5" fill="currentColor" stroke="none"/>
+            <circle cx="60" cy="74" r="4.5"/>
+            <circle cx="60" cy="74" r="1.5" fill="currentColor" stroke="none"/>
+
+            <!-- Center status LED -->
+            <line x1="47" y1="46" x2="53" y2="46"/>
+          </g>
         </svg>
       </div>
       <div>
