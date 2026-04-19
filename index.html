@@ -548,8 +548,8 @@
   .ic-gaming-svg { width: 110px; height: 110px; }
 
   /* Football animation: ball rolls into goal while spinning */
-  .ic-football-svg .fb-ball { transform-origin: 35px 60px; transition: transform 0.8s cubic-bezier(0.5, 0, 0.25, 1); }
-  .ic-football-svg .fb-goal { opacity: 0; transform-origin: 135px 60px; transform: scale(0.6); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .ic-football-svg .fb-ball { transform-origin: 35px 55px; transition: transform 0.8s cubic-bezier(0.5, 0, 0.25, 1); }
+  .ic-football-svg .fb-goal { opacity: 0; transform-origin: 132px 70px; transform: scale(0.7); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .ic-football-svg .fb-net { opacity: 0; transition: opacity 0.5s ease 0.3s; }
   .ic-football-svg .fb-trail { opacity: 0; transition: opacity 0.4s ease; }
   .interest-card:hover .ic-football-svg .fb-goal { opacity: 1; transform: scale(1); }
@@ -558,10 +558,10 @@
   .interest-card:hover .ic-football-svg .fb-trail { opacity: 0.4; animation: trailFade 1.6s ease forwards; }
   @keyframes ballRoll {
     0% { transform: translate(0, 0) rotate(0deg); }
-    60% { transform: translate(75px, -8px) rotate(540deg); }
-    75% { transform: translate(90px, 0) rotate(680deg); }
-    85% { transform: translate(85px, 2px) rotate(720deg); }
-    100% { transform: translate(88px, 0) rotate(720deg); }
+    55% { transform: translate(80px, -12px) rotate(540deg); }
+    72% { transform: translate(105px, 6px) rotate(700deg); }
+    85% { transform: translate(98px, 0) rotate(720deg); }
+    100% { transform: translate(100px, 0) rotate(720deg); }
   }
   @keyframes trailFade {
     0%, 40% { opacity: 0.5; }
@@ -1099,60 +1099,57 @@
       </div>
       <div class="ic-icon">
         <svg class="ic-football-svg" viewBox="0 0 180 110" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-          <!-- Goal (right) -->
+          <!-- Goal (right, 3D perspective) -->
           <g class="fb-goal">
-            <!-- Posts + crossbar -->
-            <rect x="115" y="32" width="2.5" height="56" fill="currentColor" stroke="none" rx="1"/>
-            <rect x="163" y="32" width="2.5" height="56" fill="currentColor" stroke="none" rx="1"/>
-            <rect x="115" y="32" width="50.5" height="2.5" fill="currentColor" stroke="none" rx="1"/>
-            <!-- Net -->
-            <g class="fb-net" stroke="currentColor" stroke-width="0.6" opacity="0.45">
-              <line x1="120" y1="35" x2="120" y2="88"/>
-              <line x1="128" y1="35" x2="128" y2="88"/>
-              <line x1="136" y1="35" x2="136" y2="88"/>
-              <line x1="144" y1="35" x2="144" y2="88"/>
-              <line x1="152" y1="35" x2="152" y2="88"/>
-              <line x1="160" y1="35" x2="160" y2="88"/>
-              <line x1="117" y1="44" x2="164" y2="44"/>
-              <line x1="117" y1="56" x2="164" y2="56"/>
-              <line x1="117" y1="68" x2="164" y2="68"/>
-              <line x1="117" y1="80" x2="164" y2="80"/>
-              <!-- diagonals -->
-              <line x1="117" y1="35" x2="164" y2="88" opacity="0.5"/>
-              <line x1="164" y1="35" x2="117" y2="88" opacity="0.5"/>
+            <!-- Front frame (larger, closer) -->
+            <path d="M95 45 L95 95 M170 45 L170 95 M95 45 L170 45" stroke-width="2.4"/>
+            <!-- Back frame (smaller, further) -->
+            <path d="M108 52 L108 85 M157 52 L157 85 M108 52 L157 52" stroke-width="1.8"/>
+            <!-- Perspective connectors -->
+            <path d="M95 45 L108 52 M170 45 L157 52 M95 95 L108 85 M170 95 L157 85" stroke-width="1.8"/>
+            <!-- Net: vertical lines -->
+            <g class="fb-net" stroke-width="0.8" opacity="0.5">
+              <line x1="115" y1="52" x2="115" y2="85"/>
+              <line x1="122" y1="52" x2="122" y2="85"/>
+              <line x1="129" y1="52" x2="129" y2="85"/>
+              <line x1="136" y1="52" x2="136" y2="85"/>
+              <line x1="143" y1="52" x2="143" y2="85"/>
+              <line x1="150" y1="52" x2="150" y2="85"/>
+              <!-- Horizontals -->
+              <line x1="108" y1="60" x2="157" y2="60"/>
+              <line x1="108" y1="68" x2="157" y2="68"/>
+              <line x1="108" y1="76" x2="157" y2="76"/>
             </g>
             <!-- Ground line -->
-            <line x1="108" y1="88" x2="172" y2="88" stroke-width="1.5"/>
+            <line x1="80" y1="95" x2="178" y2="95" stroke-width="1.5"/>
           </g>
 
-          <!-- Trail of small dots as ball flies -->
+          <!-- Trail -->
           <g class="fb-trail" fill="currentColor" stroke="none">
-            <circle cx="45" cy="62" r="1.2" opacity="0.3"/>
-            <circle cx="58" cy="58" r="1" opacity="0.35"/>
-            <circle cx="72" cy="55" r="0.9" opacity="0.4"/>
-            <circle cx="86" cy="54" r="0.8" opacity="0.45"/>
-            <circle cx="100" cy="56" r="0.7" opacity="0.5"/>
+            <circle cx="45" cy="60" r="1.3" opacity="0.4"/>
+            <circle cx="58" cy="56" r="1.1" opacity="0.45"/>
+            <circle cx="72" cy="54" r="0.9" opacity="0.5"/>
+            <circle cx="85" cy="56" r="0.8" opacity="0.55"/>
           </g>
 
-          <!-- Ball (left) -->
+          <!-- Ball (left, classic truncated icosahedron style) -->
           <g class="fb-ball">
             <!-- Outer circle -->
-            <circle cx="35" cy="60" r="22"/>
-            <!-- Central pentagon (filled) -->
-            <polygon points="35,49 42.5,54.5 39.7,63.5 30.3,63.5 27.5,54.5" fill="currentColor" stroke="none"/>
-            <polygon points="35,49 42.5,54.5 39.7,63.5 30.3,63.5 27.5,54.5"/>
-            <!-- Lines from pentagon vertices to edge -->
-            <line x1="35" y1="49" x2="35" y2="40"/>
-            <line x1="42.5" y1="54.5" x2="51" y2="52"/>
-            <line x1="39.7" y1="63.5" x2="45" y2="72"/>
-            <line x1="30.3" y1="63.5" x2="25" y2="72"/>
-            <line x1="27.5" y1="54.5" x2="19" y2="52"/>
-            <!-- Edge hexagon fragments -->
-            <path d="M35 40 L28 38 M35 40 L42 38"/>
-            <path d="M51 52 L55 46 M51 52 L55 58"/>
-            <path d="M45 72 L50 78 M45 72 L40 78"/>
-            <path d="M25 72 L20 78 M25 72 L30 78"/>
-            <path d="M19 52 L15 58 M19 52 L15 46"/>
+            <circle cx="35" cy="55" r="22" stroke-width="2.4"/>
+            <!-- Central pentagon -->
+            <polygon points="35,42 47.4,51 42.6,65.5 27.4,65.5 22.6,51" stroke-width="2"/>
+            <!-- 5 radial spokes from pentagon vertices to outer panels -->
+            <line x1="35" y1="42" x2="35" y2="33"/>
+            <line x1="47.4" y1="51" x2="55.5" y2="48.5"/>
+            <line x1="42.6" y1="65.5" x2="47" y2="74"/>
+            <line x1="27.4" y1="65.5" x2="23" y2="74"/>
+            <line x1="22.6" y1="51" x2="14.5" y2="48.5"/>
+            <!-- Outer panel boundaries (hexagon sides meeting at outer vertices) -->
+            <path d="M28 33.5 L35 33 L42 33.5"/>
+            <path d="M51 40.5 L55.5 48.5 L57 55"/>
+            <path d="M52 69 L47 74 L39 75"/>
+            <path d="M18 69 L23 74 L31 75"/>
+            <path d="M18 40.5 L14.5 48.5 L13 55"/>
           </g>
         </svg>
       </div>
@@ -1166,34 +1163,41 @@
         <div class="ic-num">02 — GAMING</div>
       </div>
       <div class="ic-icon">
-        <svg class="ic-gaming-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+        <svg class="ic-gaming-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
           <!-- Glow halo behind -->
-          <circle class="gp-glow" cx="50" cy="55" r="40" fill="currentColor" stroke="none" opacity="0.2"/>
+          <circle class="gp-glow" cx="50" cy="55" r="40" fill="currentColor" stroke="none" opacity="0.15"/>
 
           <g class="gp-body">
-            <!-- Top triggers (shoulder buttons) -->
-            <path d="M28 38 Q22 30 28 25 L40 25 Q44 25 44 30"/>
-            <path d="M72 38 Q78 30 72 25 L60 25 Q56 25 56 30"/>
-            <!-- Main body -->
-            <path d="M28 38 Q14 38 10 54 L6 76 Q4 88 16 88 Q26 88 31 80 L36 72 L64 72 L69 80 Q74 88 84 88 Q96 88 94 76 L90 54 Q86 38 72 38 Q60 36 50 36 Q40 36 28 38 Z"/>
+            <!-- Top triggers (two small bars) -->
+            <rect x="28" y="22" width="14" height="4" rx="2" fill="currentColor" stroke="none"/>
+            <rect x="58" y="22" width="14" height="4" rx="2" fill="currentColor" stroke="none"/>
 
-            <!-- D-pad cross (left) -->
-            <path d="M22 48 L22 54 L16 54 L16 60 L22 60 L22 66 L28 66 L28 60 L34 60 L34 54 L28 54 L28 48 Z"/>
+            <!-- Main body with rounded handles -->
+            <path d="M 24 32
+                     L 76 32
+                     Q 88 32 90 44
+                     L 93 66
+                     Q 94 80 82 82
+                     Q 71 82 65 74
+                     L 60 66
+                     L 40 66
+                     L 35 74
+                     Q 29 82 18 82
+                     Q 6 80 7 66
+                     L 10 44
+                     Q 12 32 24 32 Z"/>
+
+            <!-- D-pad (plus sign outlined) -->
+            <path d="M 22 50 L 28 50 L 28 44 L 36 44 L 36 50 L 42 50 L 42 58 L 36 58 L 36 64 L 28 64 L 28 58 L 22 58 Z"/>
 
             <!-- Action buttons diamond (right) -->
-            <circle class="gp-btn gp-btn-a" cx="78" cy="50" r="3" fill="currentColor" stroke="none"/>
-            <circle class="gp-btn gp-btn-b" cx="86" cy="58" r="3" fill="currentColor" stroke="none"/>
-            <circle class="gp-btn gp-btn-x" cx="78" cy="66" r="3" fill="currentColor" stroke="none"/>
-            <circle class="gp-btn gp-btn-y" cx="70" cy="58" r="3" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-a" cx="70" cy="46" r="2.8" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-b" cx="80" cy="54" r="2.8" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-x" cx="70" cy="62" r="2.8" fill="currentColor" stroke="none"/>
+            <circle class="gp-btn gp-btn-y" cx="60" cy="54" r="2.8" fill="currentColor" stroke="none"/>
 
-            <!-- Analog sticks -->
-            <circle cx="40" cy="74" r="4.5"/>
-            <circle cx="40" cy="74" r="1.5" fill="currentColor" stroke="none"/>
-            <circle cx="60" cy="74" r="4.5"/>
-            <circle cx="60" cy="74" r="1.5" fill="currentColor" stroke="none"/>
-
-            <!-- Center status LED -->
-            <line x1="47" y1="46" x2="53" y2="46"/>
+            <!-- Bottom select/start bar -->
+            <rect x="44" y="72" width="12" height="3" rx="1.5" fill="currentColor" stroke="none"/>
           </g>
         </svg>
       </div>
