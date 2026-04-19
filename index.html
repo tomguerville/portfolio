@@ -544,28 +544,18 @@
     align-items: center;
   }
   .interest-card .ic-icon svg { display: block; overflow: visible; }
-  .ic-football-svg { width: 180px; height: 110px; }
+  .ic-football-svg { width: 110px; height: 110px; }
   .ic-gaming-svg { width: 110px; height: 110px; }
 
-  /* Football animation: ball rolls into goal while spinning */
-  .ic-football-svg .fb-ball { transform-origin: 35px 55px; transition: transform 0.8s cubic-bezier(0.5, 0, 0.25, 1); }
-  .ic-football-svg .fb-goal { opacity: 0; transform-origin: 132px 70px; transform: scale(0.7); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-  .ic-football-svg .fb-net { opacity: 0; transition: opacity 0.5s ease 0.3s; }
-  .ic-football-svg .fb-trail { opacity: 0; transition: opacity 0.4s ease; }
-  .interest-card:hover .ic-football-svg .fb-goal { opacity: 1; transform: scale(1); }
-  .interest-card:hover .ic-football-svg .fb-ball { animation: ballRoll 1.6s cubic-bezier(0.45, 0.05, 0.35, 1) forwards; }
-  .interest-card:hover .ic-football-svg .fb-net { opacity: 1; }
-  .interest-card:hover .ic-football-svg .fb-trail { opacity: 0.4; animation: trailFade 1.6s ease forwards; }
-  @keyframes ballRoll {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    55% { transform: translate(80px, -12px) rotate(540deg); }
-    72% { transform: translate(105px, 6px) rotate(700deg); }
-    85% { transform: translate(98px, 0) rotate(720deg); }
-    100% { transform: translate(100px, 0) rotate(720deg); }
-  }
-  @keyframes trailFade {
-    0%, 40% { opacity: 0.5; }
-    100% { opacity: 0; }
+  /* Football: ball spins on hover */
+  .ic-football-svg .fb-ball { transform-origin: 55px 55px; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+  .ic-football-svg .fb-glow { opacity: 0; transition: opacity 0.6s ease; transform-origin: 55px 55px; }
+  .interest-card:hover .ic-football-svg .fb-ball { animation: ballSpin 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .interest-card:hover .ic-football-svg .fb-glow { opacity: 1; animation: glowPulse 1.2s ease-in-out infinite; }
+  @keyframes ballSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    30% { transform: rotate(120deg) scale(1.08); }
+    100% { transform: rotate(720deg) scale(1); }
   }
 
   /* Gaming animation: controller spins + buttons pulse */
@@ -1098,58 +1088,27 @@
         <div class="ic-num">01 — SPORT</div>
       </div>
       <div class="ic-icon">
-        <svg class="ic-football-svg" viewBox="0 0 180 110" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-          <!-- Goal (right, 3D perspective) -->
-          <g class="fb-goal">
-            <!-- Front frame (larger, closer) -->
-            <path d="M95 45 L95 95 M170 45 L170 95 M95 45 L170 45" stroke-width="2.4"/>
-            <!-- Back frame (smaller, further) -->
-            <path d="M108 52 L108 85 M157 52 L157 85 M108 52 L157 52" stroke-width="1.8"/>
-            <!-- Perspective connectors -->
-            <path d="M95 45 L108 52 M170 45 L157 52 M95 95 L108 85 M170 95 L157 85" stroke-width="1.8"/>
-            <!-- Net: vertical lines -->
-            <g class="fb-net" stroke-width="0.8" opacity="0.5">
-              <line x1="115" y1="52" x2="115" y2="85"/>
-              <line x1="122" y1="52" x2="122" y2="85"/>
-              <line x1="129" y1="52" x2="129" y2="85"/>
-              <line x1="136" y1="52" x2="136" y2="85"/>
-              <line x1="143" y1="52" x2="143" y2="85"/>
-              <line x1="150" y1="52" x2="150" y2="85"/>
-              <!-- Horizontals -->
-              <line x1="108" y1="60" x2="157" y2="60"/>
-              <line x1="108" y1="68" x2="157" y2="68"/>
-              <line x1="108" y1="76" x2="157" y2="76"/>
-            </g>
-            <!-- Ground line -->
-            <line x1="80" y1="95" x2="178" y2="95" stroke-width="1.5"/>
-          </g>
+        <svg class="ic-football-svg" viewBox="0 0 110 110" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+          <!-- Glow halo -->
+          <circle class="fb-glow" cx="55" cy="55" r="44" fill="currentColor" stroke="none" opacity="0.15"/>
 
-          <!-- Trail -->
-          <g class="fb-trail" fill="currentColor" stroke="none">
-            <circle cx="45" cy="60" r="1.3" opacity="0.4"/>
-            <circle cx="58" cy="56" r="1.1" opacity="0.45"/>
-            <circle cx="72" cy="54" r="0.9" opacity="0.5"/>
-            <circle cx="85" cy="56" r="0.8" opacity="0.55"/>
-          </g>
-
-          <!-- Ball (left, classic truncated icosahedron style) -->
           <g class="fb-ball">
             <!-- Outer circle -->
-            <circle cx="35" cy="55" r="22" stroke-width="2.4"/>
+            <circle cx="55" cy="55" r="40"/>
             <!-- Central pentagon -->
-            <polygon points="35,42 47.4,51 42.6,65.5 27.4,65.5 22.6,51" stroke-width="2"/>
+            <polygon points="55,36 77.6,52.4 68.9,78.9 41.1,78.9 32.4,52.4" stroke-width="2.4"/>
             <!-- 5 radial spokes from pentagon vertices to outer panels -->
-            <line x1="35" y1="42" x2="35" y2="33"/>
-            <line x1="47.4" y1="51" x2="55.5" y2="48.5"/>
-            <line x1="42.6" y1="65.5" x2="47" y2="74"/>
-            <line x1="27.4" y1="65.5" x2="23" y2="74"/>
-            <line x1="22.6" y1="51" x2="14.5" y2="48.5"/>
-            <!-- Outer panel boundaries (hexagon sides meeting at outer vertices) -->
-            <path d="M28 33.5 L35 33 L42 33.5"/>
-            <path d="M51 40.5 L55.5 48.5 L57 55"/>
-            <path d="M52 69 L47 74 L39 75"/>
-            <path d="M18 69 L23 74 L31 75"/>
-            <path d="M18 40.5 L14.5 48.5 L13 55"/>
+            <line x1="55" y1="36" x2="55" y2="19"/>
+            <line x1="77.6" y1="52.4" x2="92.4" y2="47.6"/>
+            <line x1="68.9" y1="78.9" x2="77.6" y2="93.8"/>
+            <line x1="41.1" y1="78.9" x2="32.4" y2="93.8"/>
+            <line x1="32.4" y1="52.4" x2="17.6" y2="47.6"/>
+            <!-- Outer panel boundaries (pentagon-pointing edges at circle rim) -->
+            <path d="M42 20 L55 19 L68 20"/>
+            <path d="M86 38 L92.4 47.6 L95 56"/>
+            <path d="M87 72 L77.6 93.8 L67 98"/>
+            <path d="M23 72 L32.4 93.8 L43 98"/>
+            <path d="M24 38 L17.6 47.6 L15 56"/>
           </g>
         </svg>
       </div>
