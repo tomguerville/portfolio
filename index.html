@@ -495,32 +495,6 @@
   }
   .project-row:hover::before { opacity: 1; }
 
-  .project-preview {
-    position: fixed;
-    top: 0; left: 0;
-    width: 360px;
-    height: 240px;
-    pointer-events: none;
-    z-index: 50;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.85);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    border-radius: 6px;
-    overflow: hidden;
-    background: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    color: var(--bg);
-    font-size: 2.2rem;
-    font-style: italic;
-    text-align: center;
-    padding: 1rem;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  }
-  .project-preview.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-
   /* ============ INTERETS ============ */
   .interests-grid {
     display: grid;
@@ -562,15 +536,34 @@
     letter-spacing: 0.1em;
   }
   .interest-card .ic-icon {
-    font-family: 'Fraunces', serif;
-    font-size: 6rem;
-    font-style: italic;
     color: var(--accent);
-    line-height: 1;
-    transition: transform 0.6s ease;
+    line-height: 0;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
-  .interest-card:hover .ic-icon { transform: scale(1.08) rotate(-3deg); }
+  .interest-card .ic-icon svg {
+    width: 88px;
+    height: 88px;
+    display: block;
+  }
+  .interest-card .ic-icon .ic-sup {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--ink-dark);
+    line-height: 1;
+    opacity: 0.9;
+  }
+  .interest-card:hover .ic-icon { transform: scale(1.06) rotate(-4deg); }
+  .interest-card:hover .ic-icon svg { animation: iconSpin 1.2s cubic-bezier(0.23, 1, 0.32, 1); }
+  @keyframes iconSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   .interest-card h4 {
     font-family: 'Fraunces', serif;
     font-size: 2rem;
@@ -827,7 +820,7 @@
     <div class="count">01 / 05</div>
   </div>
 
-  <h2 class="section-title reveal-up">Un profil <span class="it">marketing</span>, terrain dans l'âme.</h2>
+  <h2 class="section-title reveal-up">Commercial de formation, <span class="it">marketing</span> en action.</h2>
 
   <div class="about-grid">
     <div class="about-photo reveal-up">
@@ -843,9 +836,9 @@
     </div>
     <div>
       <div class="about-text" id="aboutText">
-        <p>Diplômé du BUT <span class="hl">Techniques de Commercialisation</span>, je poursuis aujourd'hui un MSc Marketing & Développement Commercial à <span class="hl">ICN Business School</span>.</p>
-        <p>Quatre expériences terrain — banque, immobilier, comptabilité, animation — et une certitude : le marketing qui fonctionne part toujours d'un <span class="hl">client compris</span>.</p>
-        <p>TOEIC 940, BAFA, permis B. Ambitieux, ponctuel, joueur d'équipe. À la recherche d'une <span class="hl">alternance en marketing</span> pour donner un cadre à toutes ces envies.</p>
+        <p>Diplômé du BUT <span class="hl">Techniques de Commercialisation</span>, quatre expériences terrain — banque, immobilier, comptabilité, animation — et une conviction : savoir vendre, c'est savoir écouter un marché.</p>
+        <p>Aujourd'hui en MSc Marketing & Développement Commercial à <span class="hl">ICN Business School</span>, je réinvestis ce réflexe commercial dans une trajectoire <span class="hl">résolument marketing</span>.</p>
+        <p>TOEIC 940, BAFA, permis B. Ambitieux, ponctuel, joueur d'équipe. À la recherche d'une <span class="hl">alternance en marketing</span> pour concrétiser cette direction.</p>
       </div>
       <div class="about-facts reveal-stagger">
         <div class="fact">
@@ -1060,7 +1053,6 @@
     </div>
   </div>
 
-  <div class="project-preview" id="projectPreview"></div>
 </section>
 
 <!-- INTERETS -->
@@ -1077,7 +1069,18 @@
       <div>
         <div class="ic-num">01 — SPORT</div>
       </div>
-      <div class="ic-icon">f</div>
+      <div class="ic-icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+          <circle cx="50" cy="50" r="40"/>
+          <polygon points="50,30 63,40 58,56 42,56 37,40"/>
+          <line x1="50" y1="30" x2="50" y2="13"/>
+          <line x1="63" y1="40" x2="79" y2="35"/>
+          <line x1="58" y1="56" x2="68" y2="70"/>
+          <line x1="42" y1="56" x2="32" y2="70"/>
+          <line x1="37" y1="40" x2="21" y2="35"/>
+        </svg>
+        <span class="ic-sup">∞</span>
+      </div>
       <div>
         <h4>Football</h4>
         <p>Pratique en club depuis toujours. Un terrain, une équipe, une exigence commune : collectif, lecture du jeu, sang-froid dans la dernière minute. Un bon brief marketing, au fond.</p>
@@ -1087,7 +1090,16 @@
       <div>
         <div class="ic-num">02 — GAMING</div>
       </div>
-      <div class="ic-icon">g</div>
+      <div class="ic-icon">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+          <path d="M26 38 Q16 38 14 52 L10 74 Q9 84 18 84 Q26 84 30 76 L34 68 L66 68 L70 76 Q74 84 82 84 Q91 84 90 74 L86 52 Q84 38 74 38 Z"/>
+          <line x1="24" y1="52" x2="34" y2="52"/>
+          <line x1="29" y1="47" x2="29" y2="57"/>
+          <circle cx="66" cy="50" r="2.8" fill="currentColor"/>
+          <circle cx="74" cy="56" r="2.8" fill="currentColor"/>
+        </svg>
+        <span class="ic-sup">+1</span>
+      </div>
       <div>
         <h4>Jeux vidéo</h4>
         <p>Terrain d'expérimentation UX, d'immersion narrative et de communautés très engagées. J'y observe autant le gameplay que les stratégies de marque des éditeurs.</p>
@@ -1318,27 +1330,7 @@
     });
   });
 
-  // ============ PROJECT PREVIEW ============
-  const preview = document.getElementById('projectPreview');
-  document.querySelectorAll('.project-row').forEach(row => {
-    row.addEventListener('mouseenter', () => {
-      if (preview) {
-        preview.textContent = row.dataset.preview;
-        preview.classList.add('active');
-      }
-    });
-    row.addEventListener('mouseleave', () => {
-      if (preview) preview.classList.remove('active');
-    });
-    row.addEventListener('mousemove', (e) => {
-      if (preview) {
-        preview.style.left = e.clientX + 'px';
-        preview.style.top = e.clientY + 'px';
-      }
-    });
-  });
-
-  // ============ NAV SCROLL COLOR SWITCH ============
+// ============ NAV SCROLL COLOR SWITCH ============
   const navEl = document.querySelector('nav');
   const creamSections = Array.from(document.querySelectorAll('section.cream'));
   function updateNav() {
