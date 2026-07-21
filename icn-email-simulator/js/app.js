@@ -122,9 +122,59 @@ function renderBarList(containerId, rows) {
     const el = document.createElement('div');
     el.className = 'bar-row';
     el.innerHTML = `
-      <span class="br-label">${row.label}</span>
-      <span class="br-track"><span class="br-fill" style="width:${(row.value / max) * 100}%"></span></span>
-      <span class="br-value">${row.display}</span>
+      <div class="br-label">${row.label}</div>
+      <div class="br-track"><div class="br-fill" style="width:${(row.value / max) * 100}%"></div></div>
+      <div class="br-value">${row.display}</div>
+    `;
+    container.appendChild(el);
+  }
+}
+
+/**
+ * Tableau à deux métriques (taux d'ouverture + taux de clic) par ligne,
+ * avec une barre distincte et légendée pour chacune — évite l'ambiguïté
+ * d'un seul chiffre "X% / Y%" sans étiquette.
+ */
+function renderMetricTable(containerId, rows) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  if (rows.length === 0) {
+    container.innerHTML = '<p class="recs-empty">Aucune donnée.</p>';
+    return;
+  }
+  const maxOpen = Math.max(...rows.map(r => r.openRate), 0.01);
+  const maxClick = Math.max(...rows.map(r => r.clickRate), 0.01);
+
+  const head = document.createElement('div');
+  head.className = 'mt-row mt-head';
+  head.innerHTML = `
+    <div class="mt-label"></div>
+    <div class="mt-metric"><span class="mt-dot mt-dot-open"></span>Ouverture</div>
+    <div class="mt-metric"><span class="mt-dot mt-dot-click"></span>Clic</div>
+  `;
+  container.appendChild(head);
+
+  for (const row of rows) {
+    const el = document.createElement('div');
+    el.className = 'mt-row';
+    if (row.empty) {
+      el.innerHTML = `
+        <div class="mt-label">${row.label}</div>
+        <div class="mt-metric mt-empty" colspan="2">Aucun profil</div>
+      `;
+      container.appendChild(el);
+      continue;
+    }
+    el.innerHTML = `
+      <div class="mt-label">${row.label}</div>
+      <div class="mt-metric">
+        <span class="mt-track"><span class="mt-fill mt-fill-open" style="width:${(row.openRate / maxOpen) * 100}%"></span></span>
+        <span class="mt-value">${pct(row.openRate)}</span>
+      </div>
+      <div class="mt-metric">
+        <span class="mt-track"><span class="mt-fill mt-fill-click" style="width:${(row.clickRate / maxClick) * 100}%"></span></span>
+        <span class="mt-value">${pct(row.clickRate)}</span>
+      </div>
     `;
     container.appendChild(el);
   }
@@ -175,19 +225,19 @@ function renderDashboard({ email, profiles, result, appeal, recs, segmentIds, st
 
   const segRows = Object.entries(result.bySegment).map(([segId, s]) => ({
     label: SEGMENT_LABEL[segId] || segId,
-    value: s.openRate * 100,
-    display: `${pct(s.openRate)} / ${pct(s.clickRate)}`,
+    openRate: s.openRate,
+    clickRate: s.clickRate,
   }));
   document.getElementById('block-by-segment').hidden = segRows.length <= 1;
-  renderBarList('segment-breakdown', segRows);
+  renderMetricTable('segment-breakdown', segRows);
 
   const statutRows = STATUTS
     .filter(st => statutIds.includes(st.id))
     .map(st => {
       const s = result.byStatut[st.id];
-      return { label: st.label, value: s.n ? s.openRate * 100 : 0, display: s.n ? `${pct(s.openRate)} / ${pct(s.clickRate)}` : '—' };
+      return { label: st.label, openRate: s.openRate, clickRate: s.clickRate, empty: !s.n };
     });
-  renderBarList('statut-breakdown', statutRows);
+  renderMetricTable('statut-breakdown', statutRows);
 
   const audienceRows = [
     { label: 'Formation', value: appeal.avgInterest.interet_formation },
