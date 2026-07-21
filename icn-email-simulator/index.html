@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur Email Marketing — ICN Business School</title>
+<meta name="description" content="Simulateur de performance d'email marketing pour ICN Business School : taux d'ouverture, taux de clic et recommandations basées sur une base de profils cibles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">ICN</span>
+      <span class="brand-text">
+        <strong>Simulateur Email Marketing</strong>
+        <span class="mono">ICN Business School — Nancy · Paris · Berlin</span>
+      </span>
+    </div>
+    <button id="load-example" class="btn btn-ghost" type="button">Charger un exemple</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ===================== COLONNE FORMULAIRE ===================== -->
+  <section class="panel form-panel" aria-labelledby="form-title">
+    <h1 id="form-title" class="display panel-title">Composez votre email</h1>
+    <p class="panel-subtitle">Renseignez le contenu et choisissez la cible : le moteur confronte votre email à la base de profils sélectionnée.</p>
+
+    <form id="simulator-form">
+
+      <div class="field">
+        <label for="input-subject">Objet <span class="char-count" id="count-subject">0 caractères</span></label>
+        <input type="text" id="input-subject" name="subject" maxlength="150" placeholder="Ex : {prénom}, découvrez votre futur campus ICN" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="input-preheader">Pré-header <span class="char-count" id="count-preheader">0 caractères</span></label>
+        <input type="text" id="input-preheader" name="preheader" maxlength="200" placeholder="Ex : Portes ouvertes, associations, alternance : tout ce qu'il faut savoir" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label for="input-content">Contenu du mail <span class="char-count" id="count-content">0 mots</span></label>
+        <textarea id="input-content" name="content" rows="9" placeholder="Rédigez le corps de votre email ici..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="input-cta">Call-to-action (CTA)</label>
+        <input type="text" id="input-cta" name="cta" maxlength="60" placeholder="Ex : Je réserve ma place" autocomplete="off">
+      </div>
+
+      <fieldset class="field">
+        <legend>Cible <span class="hint">(sélection multiple possible)</span></legend>
+        <div id="segment-checkboxes" class="chip-group"></div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend>Statut du profil <span class="hint">(optionnel — affine la simulation)</span></legend>
+        <div id="statut-checkboxes" class="chip-group"></div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary btn-block">Lancer la simulation</button>
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+    </form>
+  </section>
+
+  <!-- ===================== COLONNE DASHBOARD ===================== -->
+  <section class="panel dashboard-panel" aria-labelledby="dashboard-title" id="dashboard">
+
+    <div id="dashboard-empty" class="empty-state">
+      <p class="display empty-title">Aucune simulation pour l'instant</p>
+      <p>Renseignez votre email à gauche, choisissez une cible, puis lancez la simulation pour obtenir le tableau de bord.</p>
+    </div>
+
+    <div id="dashboard-content" hidden>
+      <div class="dashboard-header">
+        <h2 id="dashboard-title" class="display panel-title">Tableau de bord</h2>
+        <p id="dashboard-meta" class="mono panel-subtitle"></p>
+      </div>
+
+      <!-- KPI principaux -->
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-primary">
+          <div class="gauge" id="gauge-open"><span class="gauge-value" id="kpi-open-value">0%</span></div>
+          <div class="kpi-label">Taux d'ouverture estimé</div>
+          <div class="kpi-benchmark" id="kpi-open-benchmark"></div>
+        </div>
+        <div class="kpi-card kpi-primary">
+          <div class="gauge" id="gauge-click"><span class="gauge-value" id="kpi-click-value">0%</span></div>
+          <div class="kpi-label">Taux de clic estimé</div>
+          <div class="kpi-benchmark" id="kpi-click-benchmark"></div>
+        </div>
+        <div class="kpi-card kpi-secondary">
+          <div class="kpi-number" id="kpi-ctor-value">0%</div>
+          <div class="kpi-label">Taux de clic sur ouverture (CTOR)</div>
+        </div>
+        <div class="kpi-card kpi-secondary">
+          <div class="kpi-number" id="kpi-sample-value">0</div>
+          <div class="kpi-label">Profils simulés</div>
+        </div>
+      </div>
+
+      <!-- Attrait par section -->
+      <div class="dashboard-block">
+        <h3 class="block-title">Attrait estimé par section</h3>
+        <div class="section-bars" id="section-bars"></div>
+      </div>
+
+      <div class="two-col">
+        <!-- Répartition par cible -->
+        <div class="dashboard-block" id="block-by-segment">
+          <h3 class="block-title">Performance par cible</h3>
+          <div class="bar-list" id="segment-breakdown"></div>
+        </div>
+
+        <!-- Répartition par statut -->
+        <div class="dashboard-block">
+          <h3 class="block-title">Performance par statut</h3>
+          <div class="bar-list" id="statut-breakdown"></div>
+        </div>
+      </div>
+
+      <!-- Profil de l'audience -->
+      <div class="dashboard-block">
+        <h3 class="block-title">Profil moyen de l'audience simulée</h3>
+        <div class="bar-list" id="audience-profile"></div>
+      </div>
+
+      <!-- Recommandations -->
+      <div class="dashboard-block">
+        <h3 class="block-title">Recommandations</h3>
+        <ul class="recs-list" id="recs-list"></ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer mono">
+  Simulateur basé sur une base de profils fictive (6 000 profils, 5 cibles) générée pour la démonstration — les taux affichés sont des estimations modélisées, pas des données réelles.
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
