@@ -1,0 +1,72 @@
+{
+  "terminale": {
+    "count": 1200,
+    "statutCounts": {
+      "mql": 300,
+      "lead": 780,
+      "sql": 120
+    },
+    "avg_interet_formation": "53.3",
+    "avg_interet_ecole": "56.3",
+    "avg_interet_campus": "53.7",
+    "avg_vie_associative": "52.3",
+    "avg_interet_alternance": "20.9",
+    "avg_engagement_email": "50.8"
+  },
+  "bac1": {
+    "count": 1200,
+    "statutCounts": {
+      "lead": 900,
+      "sql": 84,
+      "mql": 216
+    },
+    "avg_interet_formation": "55.3",
+    "avg_interet_ecole": "50.5",
+    "avg_interet_campus": "41.6",
+    "avg_vie_associative": "37.1",
+    "avg_interet_alternance": "50.5",
+    "avg_engagement_email": "45.0"
+  },
+  "bac2": {
+    "count": 1200,
+    "statutCounts": {
+      "mql": 360,
+      "lead": 660,
+      "sql": 180
+    },
+    "avg_interet_formation": "64.5",
+    "avg_interet_ecole": "59.1",
+    "avg_interet_campus": "42.7",
+    "avg_vie_associative": "32.7",
+    "avg_interet_alternance": "59.4",
+    "avg_engagement_email": "52.8"
+  },
+  "bac3": {
+    "count": 1200,
+    "statutCounts": {
+      "lead": 600,
+      "mql": 384,
+      "sql": 216
+    },
+    "avg_interet_formation": "72.5",
+    "avg_interet_ecole": "65.9",
+    "avg_interet_campus": "44.3",
+    "avg_vie_associative": "28.6",
+    "avg_interet_alternance": "65.4",
+    "avg_engagement_email": "61.7"
+  },
+  "bac45": {
+    "count": 1200,
+    "statutCounts": {
+      "lead": 576,
+      "sql": 264,
+      "mql": 360
+    },
+    "avg_interet_formation": "68.8",
+    "avg_interet_ecole": "58.5",
+    "avg_interet_campus": "28.4",
+    "avg_vie_associative": "15.8",
+    "avg_interet_alternance": "55.9",
+    "avg_engagement_email": "50.6"
+  }
+}

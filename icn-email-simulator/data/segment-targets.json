@@ -1,0 +1,37 @@
+{
+  "bac1": {
+    "n_campaigns": 17,
+    "remis_total": 178,
+    "open_rate": 0.13483,
+    "click_rate": 0.01124,
+    "ctor": 0.08333
+  },
+  "bac2": {
+    "n_campaigns": 40,
+    "remis_total": 14013,
+    "open_rate": 0.30943,
+    "click_rate": 0.02712,
+    "ctor": 0.08764
+  },
+  "bac3": {
+    "n_campaigns": 50,
+    "remis_total": 3488,
+    "open_rate": 0.24971,
+    "click_rate": 0.03641,
+    "ctor": 0.14581
+  },
+  "bac45": {
+    "n_campaigns": 58,
+    "remis_total": 1396,
+    "open_rate": 0.29226,
+    "click_rate": 0.08166,
+    "ctor": 0.27941
+  },
+  "terminale": {
+    "n_campaigns": 43,
+    "remis_total": 17440,
+    "open_rate": 0.13194,
+    "click_rate": 0.00745,
+    "ctor": 0.0565
+  }
+}
