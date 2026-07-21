@@ -193,9 +193,33 @@ fieldset { border: none; padding: 0; }
 .bar-list { display: flex; flex-direction: column; gap: 0.65rem; }
 .bar-row { display: grid; grid-template-columns: 130px 1fr 56px; align-items: center; gap: 0.7rem; font-size: 0.82rem; }
 .bar-row .br-label { color: var(--ink); }
-.bar-row .br-track { height: 8px; border-radius: 999px; background: rgba(243,237,225,0.08); overflow: hidden; position: relative; }
-.bar-row .br-fill { height: 100%; border-radius: 999px; background: var(--accent-soft); }
+.bar-row .br-track { display: block; height: 8px; border-radius: 999px; background: rgba(243,237,225,0.08); overflow: hidden; position: relative; }
+.bar-row .br-fill { display: block; height: 100%; border-radius: 999px; background: var(--accent-soft); }
 .bar-row .br-value { font-family: 'JetBrains Mono', monospace; text-align: right; color: var(--muted); }
+
+/* Tableau à deux métriques (ouverture / clic) avec légende de couleur */
+.mt-row {
+  display: grid; grid-template-columns: 92px 1fr 1fr;
+  align-items: center; gap: 0.7rem; font-size: 0.82rem;
+  padding: 0.15rem 0;
+}
+.mt-row.mt-head {
+  color: var(--muted); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.04em;
+  font-family: 'JetBrains Mono', monospace;
+  padding-bottom: 0.5rem; margin-bottom: 0.3rem; border-bottom: 1px solid var(--line);
+}
+.mt-row.mt-head .mt-metric { gap: 0.4rem; }
+.mt-label { color: var(--ink); }
+.mt-metric { display: flex; align-items: center; gap: 0.5rem; }
+.mt-track { display: block; flex: 1; height: 6px; border-radius: 999px; background: rgba(243,237,225,0.08); overflow: hidden; }
+.mt-fill { display: block; height: 100%; border-radius: 999px; }
+.mt-fill-open { background: var(--accent-soft); }
+.mt-fill-click { background: var(--accent); }
+.mt-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
+.mt-dot-open { background: var(--accent-soft); }
+.mt-dot-click { background: var(--accent); }
+.mt-value { font-family: 'JetBrains Mono', monospace; color: var(--muted); font-size: 0.74rem; width: 36px; text-align: right; flex-shrink: 0; }
+.mt-empty { color: var(--muted); font-style: italic; font-size: 0.78rem; }
 
 .recs-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
 .rec-item {
